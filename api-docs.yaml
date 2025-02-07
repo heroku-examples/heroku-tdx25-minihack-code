@@ -1,0 +1,164 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+tags:
+- name: Finance Calculation Service
+  description: "Calculates finance agreements for car purchases based on valuation,\
+    \ credit status, and business margins."
+paths:
+  /api/calculateFinance:
+    post:
+      tags:
+      - Finance Calculation Service
+      summary: Calculate a Finance Agreement
+      description: "Processes a finance agreement based on car valuation, customer\
+        \ credit profile, business margin constraints, and competitor pricing."
+      operationId: calculateFinance
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FinanceCalculationRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/FinanceCalculationResponse"
+components:
+  schemas:
+    FinanceCalculationRequest:
+      type: object
+      properties:
+        customerId:
+          type: string
+          description: The Salesforce record ID of the customer applying for financing.
+          example: 0035g00000XyZbHAZ
+        carId:
+          type: string
+          description: The Salesforce record ID of the car being financed.
+          example: a0B5g00000LkVnWEAV
+      description: Request to calculate a finance agreement for a car purchase.
+    CarDetails:
+      type: object
+      properties:
+        carId:
+          type: string
+        make:
+          type: string
+        model:
+          type: string
+        year:
+          type: integer
+          format: int32
+        mileage:
+          type: integer
+          format: int32
+        marketValue:
+          type: number
+          format: double
+        tradeInValue:
+          type: number
+          format: double
+      description: Details of the car being financed.
+    CounterOffer:
+      type: object
+      properties:
+        adjustedCarPrice:
+          type: number
+          format: double
+        newInterestRate:
+          type: number
+          format: double
+        monthlyPayment:
+          type: number
+          format: double
+        rationale:
+          type: string
+      description: Counter-offer suggested if the recommended finance offer does not
+        meet customer expectations.
+    CustomerCreditProfile:
+      type: object
+      properties:
+        creditProfileId:
+          type: string
+        creditScore:
+          type: integer
+          format: int32
+        loanApprovalStatus:
+          type: string
+        downPayment:
+          type: number
+          format: double
+        loanTermMonths:
+          type: integer
+          format: int32
+        interestRate:
+          type: number
+          format: double
+      description: Credit profile retrieved for the customer.
+    DecisionRationale:
+      type: object
+      properties:
+        pricingStrategy:
+          type: string
+        customerAffordabilityScore:
+          type: integer
+          format: int32
+        approvalStatus:
+          type: string
+      description: Rationale for the finance offer decision.
+    FinanceCalculationResponse:
+      type: object
+      properties:
+        customerId:
+          type: string
+        carDetails:
+          $ref: "#/components/schemas/CarDetails"
+        recommendedFinanceOffer:
+          $ref: "#/components/schemas/FinanceOffer"
+        profitAnalysis:
+          $ref: "#/components/schemas/ProfitAnalysis"
+        counterOffer:
+          $ref: "#/components/schemas/CounterOffer"
+        decisionRationale:
+          $ref: "#/components/schemas/DecisionRationale"
+        retrievedCustomerCreditProfile:
+          $ref: "#/components/schemas/CustomerCreditProfile"
+      description: "Response containing the calculated finance agreement, car details,\
+        \ profitability analysis, and counter-offer."
+    FinanceOffer:
+      type: object
+      properties:
+        finalCarPrice:
+          type: number
+          format: double
+        adjustedInterestRate:
+          type: number
+          format: double
+        monthlyPayment:
+          type: number
+          format: double
+        loanTermMonths:
+          type: integer
+          format: int32
+        totalFinancingCost:
+          type: number
+          format: double
+      description: Recommended finance offer based on business rules and customer
+        affordability.
+    ProfitAnalysis:
+      type: object
+      properties:
+        profitMargin:
+          type: number
+          format: double
+        meetsMinProfitRequirement:
+          type: boolean
+      description: Analysis of profit margins based on business constraints.
