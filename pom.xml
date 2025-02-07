@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.heroku.java</groupId>
-    <artifactId>pricing-engine</artifactId>
+    <artifactId>calculate-finance-action</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>calculate-finance-action</name>
     <description>calculate-finance-action</description>
