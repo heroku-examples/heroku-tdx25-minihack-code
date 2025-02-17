@@ -1,23 +1,27 @@
 package com.heroku.java.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "Finance Calculation Service", description = "Calculates finance agreements for car purchases based on valuation, credit status, and business margins.")
+@Tag(name = "Finance Agreement Calculation", description = "Calculates finance agreements for car purchases based on valuation, credit status, and business margins.")
 @RestController
 @RequestMapping("/api/")
-public class CalculateFinanceService {
+public class FinanceAgreementService {
 
-    private static final Logger logger = LoggerFactory.getLogger(CalculateFinanceService.class);
+    private static final Logger logger = LoggerFactory.getLogger(FinanceAgreementService.class);
 
     @Operation(summary = "Calculate a Finance Agreement", description = "Processes a finance agreement based on car valuation, customer credit profile, business margin constraints, and competitor pricing.")
-    @PostMapping("/calculateFinance")
-    public FinanceCalculationResponse calculateFinance(
+    @PostMapping("/calculateFinanceAgreement")
+    public FinanceCalculationResponse calculateFinanceAgreement(
             @RequestBody FinanceCalculationRequest request, HttpServletRequest httpServletRequest) {
         logger.info("Processing finance calculation for Customer ID: {}", request.customerId);
         // Mocked Response Data
@@ -59,7 +63,7 @@ public class CalculateFinanceService {
         return response;
     }
 
-    @Schema(description = "Request to calculate a finance agreement for a car purchase.")
+    @Schema(description = "Request to compute a finance agreement for a car purchase, including the Salesforce record ID of both the customer applying for financing and the car being financed.")
     public static class FinanceCalculationRequest {
         @Schema(example = "0035g00000XyZbHAZ", description = "The Salesforce record ID of the customer applying for financing.")
         public String customerId;

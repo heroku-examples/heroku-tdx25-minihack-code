@@ -6,18 +6,44 @@ servers:
 - url: http://localhost:8080
   description: Generated server url
 tags:
-- name: Finance Calculation Service
+- name: Shipping Calculation
+  description: Calculates the carbon footprint for a given flight based on external
+    data.
+- name: Finance Agreement Calculation
   description: "Calculates finance agreements for car purchases based on valuation,\
     \ credit status, and business margins."
+- name: Carbon Footprint Calculation
+  description: Calculates the carbon footprint for a given flight based on external
+    data.
 paths:
-  /api/calculateFinance:
+  /api/calculateShippingOptions:
     post:
       tags:
-      - Finance Calculation Service
+      - Shipping Calculation
+      summary: Calculate Shipping Options
+      description: Calculates the shipping options for a product given external data.
+      operationId: calculateShippingOptions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CalculateShippingOptionsRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CalculateShippingOptionsResponse"
+  /api/calculateFinanceAgreement:
+    post:
+      tags:
+      - Finance Agreement Calculation
       summary: Calculate a Finance Agreement
       description: "Processes a finance agreement based on car valuation, customer\
         \ credit profile, business margin constraints, and competitor pricing."
-      operationId: calculateFinance
+      operationId: calculateFinanceAgreement
       requestBody:
         content:
           application/json:
@@ -31,8 +57,45 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/FinanceCalculationResponse"
+  /api/calculateCarbonFootprint:
+    post:
+      tags:
+      - Carbon Footprint Calculation
+      summary: Calculate Carbon Footprint
+      description: Calculates the carbon footprint for a given flight based on external
+        data.
+      operationId: calculateCarbonFootprint
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CarbonFootrintRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CarbonFootprintResponse"
 components:
   schemas:
+    CalculateShippingOptionsRequest:
+      type: object
+      properties:
+        productId:
+          type: string
+          description: The Salesforce record ID of the product.
+          example: 0035g00000XyZbHAZ
+      description: "Request to determine shipping options for a product, including\
+        \ the Salesforce record ID of the product being shipped."
+    CalculateShippingOptionsResponse:
+      type: object
+      properties:
+        result:
+          type: string
+      description: Response containing the calculated shipping options for the given
+        product.
     FinanceCalculationRequest:
       type: object
       properties:
@@ -44,7 +107,9 @@ components:
           type: string
           description: The Salesforce record ID of the car being financed.
           example: a0B5g00000LkVnWEAV
-      description: Request to calculate a finance agreement for a car purchase.
+      description: "Request to compute a finance agreement for a car purchase, including\
+        \ the Salesforce record ID of both the customer applying for financing and\
+        \ the car being financed."
     CarDetails:
       type: object
       properties:
@@ -162,3 +227,18 @@ components:
         meetsMinProfitRequirement:
           type: boolean
       description: Analysis of profit margins based on business constraints.
+    CarbonFootrintRequest:
+      type: object
+      properties:
+        flightId:
+          type: string
+          description: The Salesforce record ID of the flight.
+          example: 0035g00000XyZbHAZ
+      description: "Request to calculate the carbon footprint of a flight, including\
+        \ the Salesforce record ID of the flight being analyzed."
+    CarbonFootprintResponse:
+      type: object
+      properties:
+        result:
+          type: string
+      description: Response containing the calculated carbon footprint for the flight.
