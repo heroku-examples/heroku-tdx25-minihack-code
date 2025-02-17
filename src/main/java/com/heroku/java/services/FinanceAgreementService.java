@@ -50,7 +50,7 @@ public class FinanceAgreementService {
         response.counterOffer.monthlyPayment = 680.75;
         response.counterOffer.rationale = "Reduced price slightly while maintaining minimum profit margin of $2000 to stay competitive.";
         response.decisionRationale = new DecisionRationale();
-        response.decisionRationale.pricingStrategy = "Slight undercut on Carvana, matched AutoTrader with better loan rate";
+        response.decisionRationale.pricingStrategy = "Slight undercut on CodeyCars, matched AppyCars with better loan rate";
         response.decisionRationale.customerAffordabilityScore = 85;
         response.decisionRationale.approvalStatus = "Approved";
         response.retrievedCustomerCreditProfile = new CustomerCreditProfile();
