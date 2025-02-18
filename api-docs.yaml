@@ -166,6 +166,20 @@ components:
           type: string
           description: The Salesforce record ID of the car being financed.
           example: a0B5g00000LkVnWEAV
+        maxInterestRate:
+          type: number
+          description: The maximum interest rate the user is prepared to go to
+          format: double
+        downPayment:
+          type: number
+          description: The down payment the user is prepared to give
+          format: double
+          example: 1000
+        years:
+          type: integer
+          description: The number years to pay the finance the user is reuqesting
+          format: int32
+          example: 3
       description: "Request to compute a finance agreement for a car purchase, including\
         \ the Salesforce record ID of both the customer applying for financing and\
         \ the vehicle being financed."
