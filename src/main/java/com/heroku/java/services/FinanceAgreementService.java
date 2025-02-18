@@ -1,5 +1,7 @@
 package com.heroku.java.services;
 
+import java.math.BigDecimal;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,6 +43,12 @@ public class FinanceAgreementService {
         public String customerId;
         @Schema(example = "a0B5g00000LkVnWEAV", description = "The Salesforce record ID of the car being financed.")
         public String vehicleId;
+        @Schema(example = "3.5%", description = "The maximum interest rate the user is prepared to go to")
+        public double maxInterestRate;
+        @Schema(example = "1000", description = "The down payment the user is prepared to give")
+        public double downPayment;
+        @Schema(example = "3", description = "The number years to pay the finance the user is reuqesting")
+        public int years;
     }
 
     @Schema(description = "Response containing the calculated finance agreement. Describe the results in natural language text to the user.")
