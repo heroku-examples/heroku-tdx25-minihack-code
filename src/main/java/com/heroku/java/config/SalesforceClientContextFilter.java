@@ -30,6 +30,7 @@ public class SalesforceClientContextFilter extends OncePerRequestFilter {
         String encodedClientContext = request.getHeader(X_CLIENT_CONTEXT_HEADER);
         if (encodedClientContext == null) {
             filterChain.doFilter(request, response);
+            return;
             // throw new ServletException("Required " + X_CLIENT_CONTEXT_HEADER + " header not found");
         }            
         try {
