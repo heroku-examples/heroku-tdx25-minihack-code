@@ -1,7 +1,7 @@
 # TDX25 - Heroku at Camp Mini Hacks - Code
 
-[!IMPORTANT]
-The actions in this repository are used in a **Salesforce TDX'25 Mini Hack for Agentforce**. They're here to help people who did the minihack challenge, and have access to the minihack org and its objects, apps, and agents. So, these examples won't work outside the minihack. Also, the steps below are just for reference and won't work unless you use them in an org that has the correct objects already deployed. If you want to explore Heroku in the context of Agentforce please check out this [tutorial](https://github.com/heroku-examples/heroku-agentforce-tutorial) and also further samples [here](https://github.com/heroku-examples/heroku-integration-patterns).
+> [!IMPORTANT]
+> The actions in this repository are used in a **Salesforce TDX'25 Mini Hack for Agentforce**. They're here to help people who did the minihack challenge, and have access to the minihack org and its objects, apps, and agents. So, these examples won't work outside the minihack. Also, the steps below are just for reference and won't work unless you use them in an org that has the correct objects already deployed. If you want to explore Heroku in the context of Agentforce please check out this [tutorial](https://github.com/heroku-examples/heroku-agentforce-tutorial) and also further samples [here](https://github.com/heroku-examples/heroku-integration-patterns).
 
 # Requirements
 - Heroku login
