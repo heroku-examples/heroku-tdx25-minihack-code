@@ -86,7 +86,7 @@ echo \
 "ExternalService.ActionsService_FinanceCalculationRequest body = new ExternalService.ActionsService_FinanceCalculationRequest();" \
 "request.body = body;" \
 "System.debug('Final Car Price: ' + service.calculateFinanceAgreement(request).Code200.recommendedFinanceOffer.finalCarPrice);" \
-| sf apex run -o tdx-minihack-test-org
+| sf apex run -o my-org
 ```
 
 Inspect the debug log output sent to to the console and you should see the generated Quote ID output as follows:
