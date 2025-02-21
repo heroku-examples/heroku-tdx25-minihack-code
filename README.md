@@ -25,14 +25,14 @@ mvn spring-boot:run
 In a new terminal window run the following command substituting the Id values for valid **Contact** and **Vehicle Id** records from your Salesforce org.
 
 ```
-./bin/invoke.sh my-org '/api/calculateFinanceAgreement' '{}'
+./bin/invoke.sh my-org 'http://localhost:8080/api/calculateFinanceAgreement' '{"customerId": "0035g00000XyZbHAZ","vehicleId": "a0B5g00000LkVnWEAV","maxInterestRate": 0,"downPayment": 1000,"years": 3}'
 ```
 
 You should see the following output:
 
 ```
 Response from server:
-{}
+{"recommendedFinanceOffer":{"finalCarPrice":41800.0,"adjustedInterestRate":3.4,"monthlyPayment":690.5,"loanTermMonths":60,"totalFinancingCost":41430.0}}
 ```
 
 ## Deploying and Testing from Apex and Flow
@@ -77,7 +77,7 @@ Navigate to your orgs **Setup** menu and search for **Heroku** then click **Apps
 
 ### Invoking from Apex
 
-Now that you have imported your Heroku application. The following shows an Apex code fragment the demonstrates how to invoke your code in an synchronous manner (waits for response). Make sure to change the **Opportunity Id** `006am000006pS6P` below to a valid **Opportunity** from your org (see above).
+Now that you have imported your Heroku application. The following shows an Apex code fragment the demonstrates how to invoke your code in an synchronous manner (waits for response).
 
 ```
 echo \
@@ -92,5 +92,5 @@ echo \
 Inspect the debug log output sent to to the console and you should see the generated Quote ID output as follows:
 
 ```
-07:56:11.212 (3213672014)|USER_DEBUG|[1]|DEBUG|...
+07:56:11.212 (3213672014)|USER_DEBUG|[1]|DEBUG|Final Car Price:41800
 ```
