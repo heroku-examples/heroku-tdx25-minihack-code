@@ -3,7 +3,7 @@
 > [!IMPORTANT]
 > The actions in this repository are used in a **Salesforce TDX'25 Mini Hack for Agentforce**. They're here to help people who did the minihack challenge, and have access to the minihack org and its objects, apps, and agents. So, these examples won't work outside the minihack. Also, the steps below are just for reference and won't work unless you use them in an org that has the correct objects already deployed. If you want to explore Heroku in the context of Agentforce please check out this [tutorial](https://github.com/heroku-examples/heroku-agentforce-tutorial) and also further samples [here](https://github.com/heroku-examples/heroku-integration-patterns).
 
-# Requirements
+# Requirements 
 - Heroku login
 - Heroku Integration Pilot enabled
 - Heroku CLI installed
@@ -25,7 +25,7 @@ mvn spring-boot:run
 In a new terminal window run the following command substituting the Id values for valid **Contact** and **Vehicle Id** records from your Salesforce org.
 
 ```
-./bin/invoke.sh my-org 'http://localhost:8080/api/calculateFinanceAgreement' '{"customerId": "0035g00000XyZbHAZ","vehicleId": "a0B5g00000LkVnWEAV","maxInterestRate": 0,"downPayment": 1000,"years": 3}'
+./bin/invoke.sh my-org 'http://localhost:8080/api/calculateFinanceAgreement' '{"customerId": "0035g00000XyZbHAZ","vehicleId": "a04Hs00002EMj9PIAT","maxInterestRate": 0,"downPayment": 1000,"years": 3}'
 ```
 
 You should see the following output:
@@ -34,6 +34,20 @@ You should see the following output:
 Response from server:
 {"recommendedFinanceOffer":{"finalCarPrice":41800.0,"adjustedInterestRate":3.4,"monthlyPayment":690.5,"loanTermMonths":60,"totalFinancingCost":41430.0}}
 ```
+
+Run the following command substituting the Id values for valid **Flight** record from your Salesforce org.
+
+```
+./bin/invoke.sh my-org 'http://localhost:8080/api/calculateCarbonFootprint' '{"flightId": "a02Hs00001D2QtLIAV"}'
+```
+
+You should see the following output:
+
+```
+Response from server:
+{"flight":{"flightNumber":"Astro Airlines-a02Hs00001D2QtLIAV","departureAirport":"SFO","arrivalAirport":"LAX","distanceKm":543,"passengerCount":1},"emissions":{"totalCo2Kg":85.794,"co2PerPassengerKg":85.794,"co2PerKmKg":0.158},"methodology":{"calculationBasis":"DEFRA 2023 emission factors per passenger-km","fuelToCo2Ratio":3.16,"radiativeForcingMultiplier":1.9,"dataSource":"DEFRA & ICAO Aviation Emissions Guidelines"},"timestamp":"2025-02-27T11:21:44.391794Z","units":{"distance":"km","emissions":"kg CO2e"}}
+```
+
 
 ## Deploying and Testing from Apex and Flow
 
@@ -52,7 +66,7 @@ heroku buildpacks:add https://github.com/heroku/heroku-buildpack-heroku-integrat
 heroku salesforce:connect my-org --store-as-run-as-user
 heroku salesforce:import api-docs.yaml --org-name my-org --client-name ActionsService
 ```
-sf
+
 Trigger an application rebuild to install the Heroku Integration buildpack
 
 ```
@@ -85,6 +99,7 @@ echo \
 "ExternalService.ActionsService.calculateFinanceAgreement_Request request = new ExternalService.ActionsService.calculateFinanceAgreement_Request();" \
 "ExternalService.ActionsService_FinanceCalculationRequest body = new ExternalService.ActionsService_FinanceCalculationRequest();" \
 "request.body = body;" \
+"request.body.vehicleId = 'a04Hs00002EMj9PIAT';" \
 "System.debug('Final Car Price: ' + service.calculateFinanceAgreement(request).Code200.recommendedFinanceOffer.finalCarPrice);" \
 | sf apex run -o my-org
 ```
